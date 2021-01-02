@@ -14,30 +14,33 @@
             android:layout_height="55dp" android:id="@+id/buttonRegisterUser"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" android:layout_marginTop="150dp"/>
+            app:layout_constraintBottom_toTopOf="@+id/buttonAlreadyRegistered"
+            app:layout_constraintHorizontal_bias="0.483" app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"/>
     <Button
             android:text="Jau ir reģistrēts konts"
             android:layout_width="225dp"
             android:layout_height="55dp" android:id="@+id/buttonAlreadyRegistered"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/buttonRegisterUser"
-            android:layout_marginTop="15dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="30dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="68dp" app:layout_constraintHorizontal_bias="0.483"
+    />
     <com.google.android.material.textfield.TextInputLayout
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorPrimary"
             android:layout_width="365dp"
             android:layout_height="75dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/textInputLayout" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            android:layout_marginTop="15dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" app:layout_constraintVertical_bias="0.094"
+            android:id="@+id/textInputLayout3">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Parole atkārtoti"/>
+                android:hint="Parole atkārtoti" android:id="@+id/repeatedPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
             app:passwordToggleEnabled="true"
@@ -45,28 +48,29 @@
             android:layout_width="365dp"
             android:layout_height="75dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/textInputLayout" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" android:layout_marginTop="15dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="46dp"
                 android:inputType="textPassword"
-                android:hint="Parole"/>
+                android:hint="Parole" android:id="@+id/registerPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="365dp"
             android:layout_height="75dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/textInputLayout3" app:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:layout_marginTop="40dp">
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            android:layout_marginTop="64dp" android:id="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="E-pasts"/>
+                android:hint="E-pasts" android:id="@+id/editedUsername"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
             android:fontFamily="sans-serif-black"

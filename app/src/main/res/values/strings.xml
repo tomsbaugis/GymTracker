@@ -12,10 +12,7 @@
     <color name="white">#FFFFFF</color>
     <string name="title_activity_maps">Map</string>
     <string-array name="options">
-        <item>Konta iestatījumi</item>
-        <item>Favorīti</item>
         <item>Rediģēt preferences</item>
-        <item>Aktīvie abonementi</item>
         <item>Atslēgties</item>
         <item>Pievienot sporta zāli (ADMIN)</item>
     </string-array>

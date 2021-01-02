@@ -1,6 +1,8 @@
 package com.example.gymtracker;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +12,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class GoogleMapActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
     private Button button;
     private MapView mapView;
+    private Button searchGym;
+    private GoogleMap mapTest;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -48,6 +54,29 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
 
         mapView.getMapAsync(this);
 
+        searchGym = findViewById(R.id.buttonSearchGym);
+        searchGym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String addressString = "Valmiera";
+                Geocoder geocoder = new Geocoder(GoogleMapActivity.this);
+                List<Address> list = null;
+                try {
+                    list = geocoder.getFromLocationName(addressString, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert list != null;
+                Address address = list.get(0);
+                double lat = address.getLatitude();
+                double lng = address.getLongitude();
+
+                LatLng yes = new LatLng(lat, lng);
+                MarkerOptions marker1 = new MarkerOptions().position(yes).title(addressString);
+                mapTest.addMarker(marker1);
+                mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(yes, 15));
+            }
+        });
     }
 
     @Override
@@ -91,10 +120,15 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onMapReady(GoogleMap map) {
-        LatLng defaultLatLng = new LatLng(57, 25);
-        MarkerOptions marker = new MarkerOptions().position(defaultLatLng).title("Latvia");
-        map.addMarker(marker);
-        map.moveCamera(CameraUpdateFactory.newLatLng(defaultLatLng));
+        mapTest = map;
+        LatLng city = new LatLng(57.541651, 25.428387);
+        LatLng latLng1 = new LatLng(57.541018, 25.426197);
+        MarkerOptions marker1 = new MarkerOptions().position(latLng1).title("Gym1");
+        LatLng latLng2 = new LatLng(57.541651, 25.428387);
+        MarkerOptions marker2 = new MarkerOptions().position(latLng2).title("VIA");
+        mapTest.addMarker(marker1);
+        mapTest.addMarker(marker2);
+        mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 15));
     }
 
     @Override
