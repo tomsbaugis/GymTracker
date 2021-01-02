@@ -21,8 +21,9 @@
     <ImageView
             android:layout_width="150dp"
             android:layout_height="40dp" app:srcCompat="@drawable/gym" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" android:id="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginTop="4dp" android:id="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.528"/>
     <TextView
             android:text="Iestatīt sporta zāļu meklēšanas preferences"
             android:textSize="17sp"

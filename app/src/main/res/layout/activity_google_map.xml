@@ -17,8 +17,8 @@
             android:layout_height="wrap_content" android:id="@+id/textView7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498" android:layout_marginTop="11dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" app:layout_constraintBottom_toTopOf="@+id/spinner"/>
     <ImageView
             android:layout_width="150dp"
             android:layout_height="40dp" app:srcCompat="@drawable/gym" app:layout_constraintTop_toTopOf="parent"
@@ -29,15 +29,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/buttonPreferences"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="148dp"
-            app:layout_constraintHorizontal_bias="0.483"/>
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="120dp"
+            app:layout_constraintHorizontal_bias="0.487"/>
     <Button
             android:text="Meklēt sporta zāles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/buttonSearchGym"
-            android:layout_marginTop="36dp"
+            android:layout_width="176dp"
+            android:layout_height="53dp" android:id="@+id/buttonSearchGym"
             app:layout_constraintTop_toBottomOf="@+id/buttonPreferences" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="10dp"/>
     <Spinner
             android:layout_width="386dp"
             android:layout_height="56dp" android:id="@+id/spinner"
@@ -47,6 +48,8 @@
     <com.google.android.gms.maps.MapView
             android:layout_width="316dp"
             android:layout_height="354dp" android:id="@+id/mapView"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="60dp"
-            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/spinner"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPreferences" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
