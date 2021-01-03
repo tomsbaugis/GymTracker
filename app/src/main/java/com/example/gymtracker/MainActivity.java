@@ -26,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         appDataBase = openOrCreateDatabase("GymTracker", MODE_PRIVATE,null);
-        appDataBase.execSQL("CREATE TABLE IF NOT EXISTS users(Username VARCHAR,Password VARCHAR, isAdmin BIT);");
-        appDataBase.execSQL("INSERT INTO users VALUES('test','test', 0);");
+        appDataBase.execSQL("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY AUTOINCREMENT, Username VARCHAR,Password VARCHAR, isAdmin SMALLINT);");
+        appDataBase.execSQL("CREATE TABLE IF NOT EXISTS gyms(ID INTEGER PRIMARY KEY AUTOINCREMENT, Title VARCHAR, City VARCHAR,Street VARCHAR, Subscription SMALLINT, Trainer SMALLINT, Stars REAL);");
+        appDataBase.execSQL("INSERT INTO users (Username,Password,isAdmin) VALUES('test','test', 0);");
+        appDataBase.execSQL("INSERT INTO gyms (Title,City,Street,Subscription,Trainer,Stars) VALUES('Lauvas klubs','Valmiera','Tērbatas iela 1', 0, 1, 4.5);");
+        appDataBase.execSQL("INSERT INTO gyms (Title,City,Street,Subscription,Trainer,Stars) VALUES('Vidzemes olimpiskais centrs','Valmiera','Rīgas iela 91', 1, 1, 4.6);");
+        appDataBase.execSQL("INSERT INTO gyms (Title,City,Street,Subscription,Trainer,Stars) VALUES('F1, Fitnesa klubs','Rīga','Krišjāņa Barona iela 69', 1, 1, 4.4);");
+        appDataBase.execSQL("INSERT INTO gyms (Title,City,Street,Subscription,Trainer,Stars) VALUES('Jols , SIA, Fitnesa klubs','Daugavpils','Viestura iela 68', 1, 0, 4.2);");
 
         button = (Button) findViewById(R.id.buttonRegistration);
         button.setOnClickListener(new View.OnClickListener() {

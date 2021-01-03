@@ -1,8 +1,15 @@
 package com.example.gymtracker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -22,6 +30,7 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
     private MapView mapView;
     private Button searchGym;
     private GoogleMap mapTest;
+    SQLiteDatabase appDataBase = MainActivity.appDataBase;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -58,23 +67,54 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
         searchGym.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String addressString = "Valmiera";
-                Geocoder geocoder = new Geocoder(GoogleMapActivity.this);
-                List<Address> list = null;
-                try {
-                    list = geocoder.getFromLocationName(addressString, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String city = "Valmiera";
+                String table = "gyms";
+                String[] columnsToReturn = {"Title", "City", "Street", "Subscription", "Trainer", "Stars"};
+                String selection = "City =?";
+                String[] selectionArgs = {city};
+                Cursor resultSet = appDataBase.query(table, columnsToReturn, selection, selectionArgs, null, null, null);
+                if(resultSet != null){
+                    if(resultSet.getCount() > 0){
+                        for(resultSet.move(0);resultSet.moveToNext();resultSet.isAfterLast()){
+                            String gymTitle = resultSet.getString(0);
+                            String gymCity = resultSet.getString(1);
+                            String gymStreet = resultSet.getString(2);
+                            String gymSub = resultSet.getString(3);
+                            String gymTrainer = resultSet.getString(4);
+                            String gymStars = resultSet.getString(5);
+                            String subAvailability = "";
+                            String trainerAvailability = "";
+                            if (gymSub.equals("0")) {
+                                subAvailability = "Not available";
+                            } else {
+                                subAvailability = "Available";
+                            }
+                            if (gymTrainer.equals("0")) {
+                                trainerAvailability = "Not available";
+                            } else {
+                                trainerAvailability = "Available";
+                            }
+                            String gymAddress = gymCity + ", " + gymStreet;
+                            Geocoder geocoder = new Geocoder(GoogleMapActivity.this);
+                            List<Address> list = null;
+                            while (list == null) {
+                                try {
+                                    list = geocoder.getFromLocationName(gymAddress, 1);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            Address address = list.get(0);
+                            double lat = address.getLatitude();
+                            double lng = address.getLongitude();
+                            LatLng yes = new LatLng(lat, lng);
+                            MarkerOptions marker1 = new MarkerOptions().position(yes).title(gymTitle).snippet("Subscription: " + subAvailability + "\n" + "Trainer: " + trainerAvailability + "\n" + "Stars: " + gymStars);
+                            mapTest.addMarker(marker1);
+                            mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(yes, 10));
+                        }
+                    }
+                    resultSet.close();
                 }
-                assert list != null;
-                Address address = list.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-
-                LatLng yes = new LatLng(lat, lng);
-                MarkerOptions marker1 = new MarkerOptions().position(yes).title(addressString);
-                mapTest.addMarker(marker1);
-                mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(yes, 15));
             }
         });
     }
@@ -122,13 +162,38 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
     public void onMapReady(GoogleMap map) {
         mapTest = map;
         LatLng city = new LatLng(57.541651, 25.428387);
-        LatLng latLng1 = new LatLng(57.541018, 25.426197);
-        MarkerOptions marker1 = new MarkerOptions().position(latLng1).title("Gym1");
-        LatLng latLng2 = new LatLng(57.541651, 25.428387);
-        MarkerOptions marker2 = new MarkerOptions().position(latLng2).title("VIA");
-        mapTest.addMarker(marker1);
-        mapTest.addMarker(marker2);
-        mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 15));
+        mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 10));
+        mapTest.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                Context context = getApplicationContext();
+
+                LinearLayout info = new LinearLayout(context);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(context);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(context);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     @Override
