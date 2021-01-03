@@ -37,7 +37,7 @@
             android:layout_width="409dp"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textView12"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/newTitle"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
             android:text="Pilsēta"
@@ -51,15 +51,16 @@
             android:layout_height="48dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editTextTextPersonName"
-            android:hint="Sporta zāles atrašanās vieta" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+            android:id="@+id/newCity"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.266"/>
     <TextView
-            android:text="Sporta zāles darba laiks"
+            android:text="Adrese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp" android:id="@+id/textView14" android:layout_marginTop="8dp"
+            android:layout_marginStart="28dp" android:id="@+id/textView14" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/divider4"/>
     <View
             android:id="@+id/divider4"
@@ -67,109 +68,87 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             tools:layout_editor_absoluteX="1dp" android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"/>
+            app:layout_constraintTop_toBottomOf="@+id/newCity"/>
     <View
             android:id="@+id/divider9"
             android:layout_width="409dp"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
-            tools:layout_editor_absoluteX="1dp" tools:layout_editor_absoluteY="293dp"/>
+            tools:layout_editor_absoluteX="1dp" app:layout_constraintTop_toBottomOf="@+id/newAddress"
+            android:layout_marginTop="16dp"/>
     <CheckBox
             android:text="Iespēja iegādāties abonementu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/checkBox3"
-            tools:layout_editor_absoluteX="24dp" app:layout_constraintVertical_bias="0.44"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextTextPersonName2"
-            android:hint="Papildus informācija"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="28dp" app:layout_constraintTop_toBottomOf="@+id/checkBox4"
-            app:layout_constraintVertical_bias="0.0"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextTextPersonName4"
-            android:hint="Papildus informācija"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="28dp" app:layout_constraintTop_toBottomOf="@+id/textView15"
-            app:layout_constraintVertical_bias="0.0"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextTextPersonName5"
-            android:hint="Papildus informācija"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp" app:layout_constraintTop_toBottomOf="@+id/textView16"
-            app:layout_constraintVertical_bias="0.0"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextTextPersonName3"
-            tools:layout_editor_absoluteX="24dp" android:hint="Papildus informācija"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/checkBox3"
-            app:layout_constraintVertical_bias="0.0"/>
+            android:layout_width="248dp"
+            android:layout_height="37dp"
+            android:id="@+id/newSub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintTop_toBottomOf="@+id/divider9" android:layout_marginTop="16dp"/>
     <View
             android:id="@+id/divider10"
             android:layout_width="409dp"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"/>
+            app:layout_constraintTop_toBottomOf="@+id/newSub" android:layout_marginTop="24dp"/>
     <CheckBox
             android:text="Iespēja piedāvāt personīgo treneri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/checkBox4"
-            android:layout_marginTop="7dp"
+            android:layout_width="248dp"
+            android:layout_height="41dp" android:id="@+id/newTrainer"
+            android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/divider10" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="29dp"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.159"/>
     <View
             android:id="@+id/divider11"
             android:layout_width="409dp"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"/>
+            app:layout_constraintTop_toBottomOf="@+id/newTrainer" android:layout_marginTop="16dp"/>
     <TextView
             android:text="Sporta zāles apmeklētība"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView15"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/divider11" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="29dp"/>
-    <View
-            android:id="@+id/divider12"
-            android:layout_width="409dp"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="1dp"/>
-    <TextView
-            android:text="Papildus informācija:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView16"
-            android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@+id/divider12" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="36dp"/>
+            android:layout_marginStart="28dp"/>
     <Button
             android:text="Pievienot sporta zāli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/buttonAddFacility"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="11dp" app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="6dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/newDensity"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.515"
+            app:layout_constraintHorizontal_bias="0.477"/>
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/newAddress"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.261"/>
+    <SeekBar
+            android:layout_width="267dp"
+            android:layout_height="46dp" android:id="@+id/newDensity"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newTrainer" android:layout_marginTop="64dp"
+            app:layout_constraintHorizontal_bias="0.18"/>
+    <TextView
+            android:text="Nosaukums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            android:layout_marginTop="12dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.086"/>
+    <EditText
+            android:layout_width="315dp"
+            android:layout_height="44dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/newTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.302"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
     <color name="white">#FFFFFF</color>
     <string name="title_activity_maps">Map</string>
     <string-array name="options">
+        <item></item>
         <item>Rediģēt preferences</item>
         <item>Atslēgties</item>
         <item>Pievienot sporta zāli (ADMIN)</item>
