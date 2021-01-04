@@ -17,4 +17,9 @@
         <item>Atslēgties</item>
         <item>Pievienot sporta zāli (ADMIN)</item>
     </string-array>
+    <string-array name="options2">
+        <item></item>
+        <item>Rediģēt preferences</item>
+        <item>Atslēgties</item>
+    </string-array>
 </resources>

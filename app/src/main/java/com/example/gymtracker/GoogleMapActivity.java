@@ -34,22 +34,39 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
     private GoogleMap mapTest;
     SQLiteDatabase appDataBase = MainActivity.appDataBase;
     String densityString = "";
+    String densityPreferences = "";
+    private int foundGyms = 0;
     private Spinner spinner;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static final String CITY = "cityKey";
+    public static final String SUB = "subKey";
+    public static final String TRAINER = "trainerKey";
+    public static final String DENSITY = "densityKey";
+    public static final String RATING = "ratingKey";
+    public static final String ADMIN = "adminKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_map);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());;
+        String admin = sharedPreferences.getString(ADMIN, "adminKey");
 
         spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        if (admin.equals("1")) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.options, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.setOnItemSelectedListener(this);
+        } else if (admin.equals("0")) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.options2, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.setOnItemSelectedListener(this);
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -95,11 +112,36 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());;
-                String city = sharedPreferences.getString(CITY, "cityKey");
+                String cityFromPreferences = sharedPreferences.getString(CITY, "cityKey");
+                int subFromPreferences = sharedPreferences.getInt(SUB, 0);
+                int trainerFromPreferences = sharedPreferences.getInt(TRAINER, 0);
+                String subPref = "";
+                String trainerPref = "";
+                if (subFromPreferences == 0) {
+                    subPref = "Nav pieejams";
+                } else {
+                    subPref = "Ir pieejams";
+                }
+                if (trainerFromPreferences == 0) {
+                    trainerPref = "Nav pieejami";
+                } else {
+                    trainerPref = "Ir pieejami";
+                }
+                int densityFromPreferences = sharedPreferences.getInt(DENSITY, 0);
+                if (densityFromPreferences > 0 && densityFromPreferences < 33) {
+                    densityPreferences = "Zems";
+                }
+                else if (densityFromPreferences > 33 && densityFromPreferences < 66) {
+                    densityPreferences = "Vidējs";
+                }
+                else if (densityFromPreferences > 66) {
+                    densityPreferences = "Augsts";
+                }
+                float ratingFromPreferences = sharedPreferences.getFloat(RATING, 0);
                 String table = "gyms";
                 String[] columnsToReturn = {"Title", "City", "Street", "Subscription", "Trainer", "Density", "Stars"};
                 String selection = "City =?";
-                String[] selectionArgs = {city};
+                String[] selectionArgs = {cityFromPreferences};
                 Cursor resultSet = appDataBase.query(table, columnsToReturn, selection, selectionArgs, null, null, null);
                 if(resultSet != null){
                     if(resultSet.getCount() > 0){
@@ -110,7 +152,6 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
                             String gymSub = resultSet.getString(3);
                             String gymTrainer = resultSet.getString(4);
                             String gymDensity = resultSet.getString(5);
-                            System.out.println("DENSE : " + gymDensity);
                             int gymDensityNumber = Integer.parseInt(gymDensity);
                             if (gymDensityNumber > 0 && gymDensityNumber < 33) {
                                 densityString = "Zems";
@@ -121,7 +162,7 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
                             else if (gymDensityNumber > 66) {
                                 densityString = "Augsts";
                             }
-                            String gymStars = resultSet.getString(6);
+                            double gymStars = Double.parseDouble(resultSet.getString(6));
                             String subAvailability = "";
                             String trainerAvailability = "";
                             if (gymSub.equals("0")) {
@@ -148,8 +189,14 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
                             double lat = address.getLatitude();
                             double lng = address.getLongitude();
                             LatLng yes = new LatLng(lat, lng);
-                            MarkerOptions marker1 = new MarkerOptions().position(yes).title(gymTitle).snippet("Abonements: " + subAvailability + "\n" + "Personīgie treneri: " + trainerAvailability + "\n" + "Apmeklējums: " + densityString + "\n" + "Reitings: " + gymStars);
-                            mapTest.addMarker(marker1);
+                            if (subPref.equals(subAvailability) && trainerPref.equals(trainerAvailability) && densityPreferences.equals(densityString) && gymStars >= ratingFromPreferences) {
+                                foundGyms++;
+                                MarkerOptions marker1 = new MarkerOptions().position(yes).title(gymTitle).snippet("Abonements: " + subAvailability + "\n" + "Personīgie treneri: " + trainerAvailability + "\n" + "Apmeklējums: " + densityString + "\n" + "Reitings: " + gymStars);
+                                mapTest.addMarker(marker1);
+                            }
+                            if (foundGyms == 0){
+                                Toast.makeText(getApplicationContext(), "Neviena sporta zāle neatbilda jūsu vēlmēm", Toast.LENGTH_SHORT).show();
+                            }
                             mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(yes, 10));
                         }
                     }

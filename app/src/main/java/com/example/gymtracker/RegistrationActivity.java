@@ -39,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 repeatedPassword = findViewById(R.id.repeatedPassword);
                 String passRepeat = password.getText().toString();
                 if (pass.equals(passRepeat)) {
-                    String sql = "INSERT INTO users (Username, Password) VALUES (?, ?)";
+                    String sql = "INSERT INTO users (Username, Password, isAdmin) VALUES (?, ?, ?)";
                     SQLiteStatement statement = appDataBase.compileStatement(sql);
 
                     String userValue = user;
@@ -47,6 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     statement.bindString(1, userValue);
                     statement.bindString(2, passwordValue);
+                    statement.bindDouble(3, 0);
 
                     long rowId = statement.executeInsert();
                     Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
