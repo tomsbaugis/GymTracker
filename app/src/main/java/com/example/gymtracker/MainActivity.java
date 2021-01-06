@@ -58,21 +58,25 @@ public class MainActivity extends AppCompatActivity {
                 String selection = "Username =?";
                 String[] selectionArgs = { user };
                 Cursor resultSet = appDataBase.query(table, columnsToReturn, selection, selectionArgs, null, null, null);
-                resultSet.moveToFirst();
-                String actualUser = resultSet.getString(0);
-                String actualPass = resultSet.getString(1);
-                String adminStatus = resultSet.getString(2);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(ADMIN, adminStatus);
-                editor.commit();
+                if (resultSet.getCount() != 0) {
+                    resultSet.moveToFirst();
+                    String actualUser = resultSet.getString(0);
+                    String actualPass = resultSet.getString(1);
+                    String adminStatus = resultSet.getString(2);
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(ADMIN, adminStatus);
+                    editor.commit();
 
 
-                if (actualUser.equals(user) && actualPass.equals(pass)) {
-                    Toast.makeText(getApplicationContext(), "Autorizācija veiksmīga", Toast.LENGTH_SHORT).show();
-                    openGoogleMapActivity();
+                    if (actualUser.equals(user) && actualPass.equals(pass)) {
+                        Toast.makeText(getApplicationContext(), "Autorizācija veiksmīga", Toast.LENGTH_SHORT).show();
+                        openGoogleMapActivity();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Nepareizi dati", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Nepareizi dati", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Lietotājs netika atrasts", Toast.LENGTH_SHORT).show();
                 }
             }
         });

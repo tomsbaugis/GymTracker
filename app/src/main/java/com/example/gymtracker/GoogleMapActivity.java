@@ -194,10 +194,9 @@ public class GoogleMapActivity extends AppCompatActivity implements AdapterView.
                                 MarkerOptions marker1 = new MarkerOptions().position(yes).title(gymTitle).snippet("Abonements: " + subAvailability + "\n" + "Personīgie treneri: " + trainerAvailability + "\n" + "Apmeklējums: " + densityString + "\n" + "Reitings: " + gymStars);
                                 mapTest.addMarker(marker1);
                             }
-                            if (foundGyms == 0){
-                                Toast.makeText(getApplicationContext(), "Neviena sporta zāle neatbilda jūsu vēlmēm", Toast.LENGTH_SHORT).show();
-                            }
                             mapTest.moveCamera(CameraUpdateFactory.newLatLngZoom(yes, 10));
+                        } if (foundGyms == 0){
+                            Toast.makeText(getApplicationContext(), "Neviena sporta zāle neatbilda jūsu vēlmēm", Toast.LENGTH_SHORT).show();
                         }
                     }
                     resultSet.close();
